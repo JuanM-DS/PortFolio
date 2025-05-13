@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portfolio</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Cabecera */
+        header {
+            background-color: #0d47a1;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Navegación */
+        nav {
+            background-color: #1565c0;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Contenido principal */
+        main {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Sección Sobre Mí */
+        .about {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #0d47a1;
+        }
+
+        .about p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* Sección Proyectos */
+        .projects {
+            margin-bottom: 4rem;
+        }
+
+        .projects h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #0d47a1;
+            text-align: center;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Carrusel de imágenes */
+        .carousel {
+            position: relative;
+            height: 200px;
+            background-color: #e0e0e0;
+            overflow: hidden;
+        }
+
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 0 1rem;
+            z-index: 10;
+        }
+
+        .carousel-button {
+            background-color: rgba(13, 71, 161, 0.7);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .carousel-button:hover {
+            background-color: rgba(13, 71, 161, 0.9);
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .carousel-dot.active {
+            background-color: #ffffff;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #0d47a1;
+        }
+
+        .project-info p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Sección Contacto */
+        .contact {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #0d47a1;
+        }
+
+        .contact p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-links a {
+            color: #0d47a1;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: #0d47a1;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-content p {
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-content h1 {
+                font-size: 2rem;
+            }
+        }
+
+        Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: auto;
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-carousel {
+    width: 100%;
+    height: 80%;
+    position: relative;
+}
+
+.modal-carousel .carousel-container {
+    height: 100%;
+}
+
+.modal-carousel .carousel-slide img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.modal-carousel .carousel-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.modal-carousel .carousel-button {
+    font-size: 3rem;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.modal-carousel .carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.modal-carousel .carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #bbb;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.modal-carousel .carousel-dot.active {
+    background-color: #fff;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.view-details-btn {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.view-details-btn:hover {
+    background-color: #45a049;
+}
+
+/* Estilos opcionales para mejorar el modal */
+#projectModal .modal-content {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+#projectModal .carousel-item img {
+    max-height: 70vh;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+#projectModal .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+/* Estilo para los botones de ver detalles en las tarjetas */
+.project-info .btn-primary {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.project-info .btn-primary:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+}
+
+/* Estilos para el modal mejorado */
+#projectModal .modal-dialog {
+    max-width: 90%;
+    max-height: 90vh;
+}
+
+#projectModal .carousel-inner {
+    max-height: 70vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #4CAF50 #333;
+}
+
+#projectModal .carousel-inner::-webkit-scrollbar {
+    width: 8px;
+}
+
+#projectModal .carousel-inner::-webkit-scrollbar-track {
+    background: #333;
+}
+
+#projectModal .carousel-inner::-webkit-scrollbar-thumb {
+    background-color: #4CAF50;
+    border-radius: 10px;
+}
+
+#projectModal .carousel-item {
+    text-align: center;
+    padding: 20px;
+}
+
+#projectModal .carousel-item img {
+    max-width: 100%;
+    max-height: 65vh;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#projectModal .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    padding: 10px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: 80%;
+}
+
+#projectModal .carousel-control-prev,
+#projectModal .carousel-control-next {
+    width: 5%;
+    opacity: 0.8;
+}
+
+#projectModal .carousel-control-prev:hover,
+#projectModal .carousel-control-next:hover {
+    opacity: 1;
+}
+/* Estilos para modal full height */
+#projectModal .modal-dialog.modal-fullscreen {
+    max-width: 95%;
+    max-height: 95vh;
+}
+
+#projectModal .modal-content {
+    height: 95vh;
+}
+
+#projectModal .carousel-inner {
+    height: calc(95vh - 120px); /* Ajuste para header y footer */
+}
+
+#projectModal .carousel-item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#projectModal .carousel-item img {
+    max-height: 85vh;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+#projectModal .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 15px 25px;
+    border-radius: 8px;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: 90%;
+}
+
+#projectModal .carousel-control-prev,
+#projectModal .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+}
+
+#projectModal .carousel-control-prev:hover,
+#projectModal .carousel-control-next:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Ajustes finales para el modal */
+#projectModal .modal-dialog {
+    max-width: 95%;
+    height: 95vh;
+    margin: 2vh auto;
+}
+
+#projectModal .modal-content {
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+#projectModal .carousel {
+    height: 100%;
+}
+
+#projectModal .carousel-inner {
+    height: 100%;
+    overflow: visible;
+}
+
+#projectModal .carousel-item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+#projectModal .carousel-item img {
+    max-height: 85vh;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+#projectModal .carousel-control-prev,
+#projectModal .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+#projectModal .carousel-control-prev:hover,
+#projectModal .carousel-control-next:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Eliminar scroll vertical - Navegación solo con controles */
+body.modal-open {
+    overflow: auto;
+    padding-right: 0 !important;
+}
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Juan De Los Santos</h1>
+            <p>Desarrollador De Software</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">Sobre Mí</a></li>
+            <li><a href="#projects">Proyectos</a></li>
+            <li><a href="#contact">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="about" class="about">
+            <h2>Sobre Mí</h2>
+            <p>¡Hola! Soy un apasionado desarrollador de software con experiencia en diversas tecnologías y frameworks. Me encanta crear soluciones funcionales que resuelvan problemas reales.</p>
+        </section>
+
+        <section id="projects" class="projects">
+            <h2>Mis Proyectos</h2>
+            <div class="projects-grid">
+                <!-- Proyecto 1: SocialMed -->
+                <div class="project-card">
+                    <div class="carousel">
+                        <div class="carousel-container">
+                            <div class="carousel-slide">
+                                <img src="socialMed/image1.png" alt="SocialMed - Vista 1">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="socialMed/image2.png" alt="SocialMed - Vista 2">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="socialMed/image3.png" alt="SocialMed - Vista 3">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="socialMed/image4.png" alt="SocialMed - Vista 4">
+                            </div>
+                        </div>
+                        <div class="carousel-controls">
+                            <button class="carousel-button prev">&#10094;</button>
+                            <button class="carousel-button next">&#10095;</button>
+                        </div>
+                        <div class="carousel-dots">
+                            <div class="carousel-dot active"></div>
+                            <div class="carousel-dot"></div>
+                            <div class="carousel-dot"></div>
+                            <div class="carousel-dot"></div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>SocialMedia</h3>
+                        <p>Plataforma social En la cual es posible realizar posts, comentarios, administrar perfiles y hacer amigos.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">.Net Core</span>
+                            <span class="tech-tag">SQL Server</span>
+                            <span class="tech-tag">Asp.Net Identity</span>
+                            <span class="tech-tag">Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyecto 2: RestaurantApi -->
+                <div class="project-card">
+                    <div class="carousel">
+                        <div class="carousel-container">
+                            <div class="carousel-slide">
+                                <img src="RestaurantApi/image.png" alt="RestaurantApi - Vista Principal">
+                            </div>
+                        </div>
+                        <div class="carousel-controls">
+                            <button class="carousel-button prev">&#10094;</button>
+                            <button class="carousel-button next">&#10095;</button>
+                        </div>
+                        <div class="carousel-dots">
+                            <div class="carousel-dot active"></div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Restaurant API</h3>
+                        <p>API RESTful para gestión de restaurantes, permitiendo administrar menús, pedidos, reservas y comentarios de clientes.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">.Net Core</span>
+                            <span class="tech-tag">SQL Server</span>
+                            <span class="tech-tag">Swagger</span>
+                            <span class="tech-tag">Bootstrap</span>
+                            <span class="tech-tag">JWT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyecto 3: Interestal -->
+                <div class="project-card">
+                    <div class="carousel">
+                        <div class="carousel-container">
+                            <div class="carousel-slide">
+                                <img src="InterestalAoo/image.png" alt="Interestal - Vista 1">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="InterestalAoo/image1.png" alt="Interestal - Vista 2">
+                            </div>
+                        </div>
+                        <div class="carousel-controls">
+                            <button class="carousel-button prev">&#10094;</button>
+                            <button class="carousel-button next">&#10095;</button>
+                        </div>
+                        <div class="carousel-dots">
+                            <div class="carousel-dot active"></div>
+                            <div class="carousel-dot"></div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Interestal</h3>
+                        <p>Aplicación de exploración de la pelicula de Interestellar</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Flutter</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyecto 4: Banking -->
+                <div class="project-card">
+                    <div class="carousel">
+                        <div class="carousel-container">
+                            <div class="carousel-slide">
+                                <img src="Banking/Beneficiarios.png" alt="Banking - Beneficiarios">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="Banking/dashboar2.png" alt="Banking - Dashboard 2">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="Banking/dashboard.png" alt="Banking - Dashboard">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="Banking/image.png" alt="Banking - Vista Principal">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="Banking/login.png" alt="Banking - Login">
+                            </div>
+                        </div>
+                        <div class="carousel-controls">
+                            <button class="carousel-button prev">&#10094;</button>
+                            <button class="carousel-button next">&#10095;</button>
+                        </div>
+                        <div class="carousel-dots">
+                            <div class="carousel-dot active"></div>
+                            <div class="carousel-dot"></div>
+                            <div class="carousel-dot"></div>
+                            <div class="carousel-dot"></div>
+                            <div class="carousel-dot"></div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Banking App</h3>
+                        <p>Aplicación de banca digital con funcionalidades de gestión de cuentas, transferencias, beneficiarios y dashboard de análisis financiero.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Bootstrap</span>
+                            <span class="tech-tag">.NET Core</span>
+                            <span class="tech-tag">SQL Server</span>
+                            <span class="tech-tag">Asp.Net Identity</span>
+                            <span class="tech-tag">Entity Framework</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+                  <div class="modal-content bg-dark text-white">
+                    <div class="modal-header border-0">
+                      <h5 class="modal-title" id="projectModalLabel">Detalles del Proyecto</h5>
+                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                      <div class="container-fluid">
+                        <div class="row" id="modalImagesGrid">
+                          <!-- Las imágenes se insertarán aquí dinámicamente -->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2>Contacto</h2>
+            <p>¿Interesado en trabajar juntos o tienes alguna pregunta? ¡No dudes en contactarme!</p>
+            <div class="contact-links">
+                <a href="mailto:juanm.2004.sd@gmail.com">juanm.2004.sd@gmail.com</a>
+                <a href="https://www.linkedin.com/in/juan-manuel-de-los-santos-069755250/" target="_blank">LinkedIn</a>
+                <a href="https://github.com/JuanM-DS" target="_blank">GitHub</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Mi Portfolio. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const projectCards = document.querySelectorAll('.project-card');
+    const modalElement = document.getElementById('projectModal');
+    const modal = new bootstrap.Modal(modalElement);
+    const modalImagesGrid = document.getElementById('modalImagesGrid');
+    
+    projectCards.forEach(card => {
+        // Remover cualquier botón existente para evitar duplicados
+        const existingButtons = card.querySelectorAll('button.btn-primary');
+        existingButtons.forEach(button => button.remove());
+        
+        // Crear un nuevo botón con el event listener adecuado
+        const viewDetailsBtn = document.createElement('button');
+        viewDetailsBtn.className = 'btn btn-primary mt-3';
+        viewDetailsBtn.textContent = 'Ver Detalles';
+        card.querySelector('.project-info').appendChild(viewDetailsBtn);
+        
+        viewDetailsBtn.addEventListener('click', function() {
+            const carouselSlides = card.querySelectorAll('.carousel-slide');
+            
+            // Limpiar y cargar nuevas imágenes
+            modalImagesGrid.innerHTML = '';
+           
+            carouselSlides.forEach((slide) => {
+                const imgElement = slide.querySelector('img');
+                
+                // Crear columna para la imagen
+                const colDiv = document.createElement('div');
+                colDiv.className = 'col-12 col-md-6 col-lg-4 mb-4';
+                
+                // Crear contenedor para la imagen con estilo
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'bg-dark p-2 rounded h-100';
+                imgContainer.style.height = '300px';
+                
+                const img = document.createElement('img');
+                img.src = imgElement.src;
+                img.alt = imgElement.alt;
+                img.className = 'img-fluid rounded w-100 h-100 object-fit-cover';
+                img.style.cursor = 'pointer';
+                
+                // Agregar evento para ampliar imagen al hacer clic
+                img.addEventListener('click', function() {
+                    const expandedView = document.createElement('div');
+                    expandedView.className = 'position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-75';
+                    expandedView.style.zIndex = '1060';
+                    
+                    const expandedImg = document.createElement('img');
+                    expandedImg.src = this.src;
+                    expandedImg.className = 'img-fluid';
+                    expandedImg.style.maxHeight = '90vh';
+                    expandedImg.style.maxWidth = '90vw';
+                    
+                    expandedView.appendChild(expandedImg);
+                    document.body.appendChild(expandedView);
+                    
+                    expandedView.addEventListener('click', function() {
+                        document.body.removeChild(expandedView);
+                    });
+                });
+                
+                imgContainer.appendChild(img);
+                colDiv.appendChild(imgContainer);
+                modalImagesGrid.appendChild(colDiv);
+            });
+            
+            modal.show();
+        });
+    });
+});
+
+    const projectCards = document.querySelectorAll('.project-card');
+    const modalElement = document.getElementById('projectModal');
+    const modal = new bootstrap.Modal(modalElement, {
+        backdrop: true,
+        keyboard: true,
+        focus: true
+    });
+    const modalCarouselInner = document.getElementById('modalCarouselInner');
+    let carouselInstance = null;
+    
+    // Eliminar transiciones CSS para el modal
+    modalElement.style.transition = 'none';
+    
+    projectCards.forEach(card => {
+        const viewDetailsBtn = document.createElement('button');
+        viewDetailsBtn.className = 'btn btn-primary mt-3';
+        viewDetailsBtn.textContent = 'Ver Detalles';
+        card.querySelector('.project-info').appendChild(viewDetailsBtn);
+        
+        viewDetailsBtn.addEventListener('click', function() {
+            const carouselSlides = card.querySelectorAll('.carousel-slide');
+           
+            // Destruir instancia previa del carrusel
+            if (carouselInstance) {
+                carouselInstance.dispose();
+            }
+            // Limpiar y cargar nuevas imágenes
+            modalCarouselInner.innerHTML = '';
+           
+            carouselSlides.forEach((slide, index) => {
+                const imgElement = slide.querySelector('img');
+                const carouselItem = document.createElement('div');
+                carouselItem.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+               
+                const img = document.createElement('img');
+                img.src = imgElement.src;
+                img.alt = imgElement.alt;
+                img.className = 'img-fluid w-100 h-100 object-fit-contain';
+               
+                carouselItem.appendChild(img);
+                modalCarouselInner.appendChild(carouselItem);
+            });
+            
+            // Añadir CSS para desactivar transiciones en el carrusel
+            const style = document.createElement('style');
+            style.textContent = `
+                #modalCarousel .carousel-item {
+                    transition: none !important;
+                    transform: none !important;
+                }
+                .modal.fade {
+                    transition: none !important;
+                }
+                .modal.fade .modal-dialog {
+                    transition: none !important;
+                    transform: none !important;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Inicializar nuevo carrusel de Bootstrap - mantenemos slide para la navegación
+            carouselInstance = new bootstrap.Carousel(document.getElementById('modalCarousel'), {
+                interval: false,
+                wrap: true
+            });
+            
+            // Obtener los botones de navegación del carrusel
+            const prevButton = document.querySelector('.carousel-control-prev');
+            const nextButton = document.querySelector('.carousel-control-next');
+            
+            // Implementar navegación manual sin animaciones
+            prevButton.addEventListener('click', function() {
+                carouselInstance.prev();
+            });
+            
+            nextButton.addEventListener('click', function() {
+                carouselInstance.next();
+            });
+            
+            modal.show();
+        });
+    });
+document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar todos los carruseles
+            const carousels = document.querySelectorAll('.carousel');
+            
+            carousels.forEach(function(carousel) {
+                const container = carousel.querySelector('.carousel-container');
+                const slides = carousel.querySelectorAll('.carousel-slide');
+                const prevBtn = carousel.querySelector('.prev');
+                const nextBtn = carousel.querySelector('.next');
+                const dots = carousel.querySelectorAll('.carousel-dot');
+                
+                let currentIndex = 0;
+                const slideWidth = 100; // En porcentaje
+                
+                // Función para actualizar el carrusel
+                function updateCarousel() {
+                    container.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+                    
+                    // Actualizar los puntos indicadores
+                    dots.forEach((dot, index) => {
+                        if (index === currentIndex) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                }
+                
+                // Event listeners para los botones
+                prevBtn.addEventListener('click', function() {
+                    currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
+                    updateCarousel();
+                });
+                
+                nextBtn.addEventListener('click', function() {
+                    currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
+                    updateCarousel();
+                });
+                
+                // Event listeners para los puntos indicadores
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', function() {
+                        currentIndex = index;
+                        updateCarousel();
+                    });
+                });
+                
+                // Autoplay opcional (comentado por defecto)
+                /*
+                setInterval(function() {
+                    currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
+                    updateCarousel();
+                }, 5000); // Cambiar slide cada 5 segundos
+                */
+            });
+        });
+    </script>
+</body>
+</html>
